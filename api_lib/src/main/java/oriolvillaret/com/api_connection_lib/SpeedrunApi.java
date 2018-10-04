@@ -3,7 +3,9 @@ package oriolvillaret.com.api_connection_lib;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import oriolvillaret.com.api_connection_lib.model.PagerGamesResponse;
+import oriolvillaret.com.api_connection_lib.models.PagerGamesResponse;
+import oriolvillaret.com.api_connection_lib.models.PagerRecordsResponse;
+import oriolvillaret.com.api_connection_lib.models.UserResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +51,38 @@ public class SpeedrunApi {
 
             @Override
             public void onFailure(Call<PagerGamesResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void getRecords(String gameId, final SpeedrunApiResponse<PagerRecordsResponse> callback) {
+        SpeedrunService service = retrofit.create(SpeedrunService.class);
+        Call<PagerRecordsResponse> records = service.getListRepos(gameId);
+        records.enqueue(new Callback<PagerRecordsResponse>() {
+            @Override
+            public void onResponse(Call<PagerRecordsResponse> call, Response<PagerRecordsResponse> response) {
+                callback.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<PagerRecordsResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void getUser(String userId, final SpeedrunApiResponse<UserResponse> callback) {
+        SpeedrunService service = retrofit.create(SpeedrunService.class);
+        Call<UserResponse> user = service.getUser(userId);
+        user.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                callback.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

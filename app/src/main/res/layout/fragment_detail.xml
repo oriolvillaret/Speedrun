@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.DetailFragment">
 
-    <oriolvillaret.com.components.ItemGameView
-        android:id="@+id/item"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <oriolvillaret.com.components.ItemGameView
+            android:id="@+id/fragment_detail_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="RECORD" />
+
+        <TextView
+            android:id="@+id/fragment_detail_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            tools:text="username - 4m 54s" />
+
+        <Button
+            android:id="@+id/fragment_detail_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="watch video" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_detail_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_loading"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

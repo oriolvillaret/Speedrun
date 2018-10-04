@@ -1,10 +1,8 @@
-package oriolvillaret.com.api_connection_lib.model;
+package oriolvillaret.com.api_connection_lib.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Game implements Serializable{
+public class Game {
     @SerializedName("id")
     public String id;
     @SerializedName("names")
@@ -12,17 +10,17 @@ public class Game implements Serializable{
     @SerializedName("assets")
     public Assets assets;
 
-    public class Names implements Serializable{
+    public class Names {
         @SerializedName("international")
         public String international;
     }
 
-    public class Assets implements Serializable{
+    public class Assets {
         @SerializedName("icon")
         public Icon icon;
     }
 
-    public class Icon implements Serializable {
+    public class Icon {
         @SerializedName("uri")
         public String uri;
         @SerializedName("width")

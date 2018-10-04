@@ -1,4 +1,4 @@
-package oriolvillaret.com.speedrun.presenter;
+package oriolvillaret.com.speedrun.presenters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

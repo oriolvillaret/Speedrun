@@ -15,7 +15,7 @@
         tools:context=".ui.MasterListFragment" />
 
     <RelativeLayout
-        android:id="@+id/activity_main_loading"
+        android:id="@+id/fragment_master_list_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_loading"

@@ -1,4 +1,4 @@
-package oriolvillaret.com.speedrun.presenter;
+package oriolvillaret.com.speedrun.presenters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -6,8 +6,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import oriolvillaret.com.speedrun.controller.SpeedrunController;
-import oriolvillaret.com.speedrun.model.Game;
+import oriolvillaret.com.speedrun.controllers.SpeedrunController;
+import oriolvillaret.com.speedrun.models.Game;
 
 public class MasterListPresenter extends BasePresenter<MasterListPresenter.MasterListInterface> {
 

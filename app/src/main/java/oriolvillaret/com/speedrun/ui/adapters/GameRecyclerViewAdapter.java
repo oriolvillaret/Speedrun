@@ -1,4 +1,4 @@
-package oriolvillaret.com.speedrun.ui.adapter;
+package oriolvillaret.com.speedrun.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import oriolvillaret.com.components.ItemGameView;
 import oriolvillaret.com.speedrun.R;
-import oriolvillaret.com.speedrun.model.Game;
+import oriolvillaret.com.speedrun.models.Game;
 
 public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

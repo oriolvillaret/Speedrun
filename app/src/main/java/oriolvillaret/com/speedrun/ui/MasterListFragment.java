@@ -2,14 +2,8 @@ package oriolvillaret.com.speedrun.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +14,9 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import oriolvillaret.com.speedrun.R;
-import oriolvillaret.com.speedrun.model.Game;
-import oriolvillaret.com.speedrun.presenter.MasterListPresenter;
-import oriolvillaret.com.speedrun.ui.adapter.GameRecyclerViewAdapter;
+import oriolvillaret.com.speedrun.models.Game;
+import oriolvillaret.com.speedrun.presenters.MasterListPresenter;
+import oriolvillaret.com.speedrun.ui.adapters.GameRecyclerViewAdapter;
 
 
 public class MasterListFragment extends BaseFragment implements MasterListPresenter.MasterListInterface, GameRecyclerViewAdapter.OnItemClickListener {
@@ -34,8 +28,8 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
     @BindView(R.id.fragment_master_list_recycler)
     RecyclerView fragment_master_list_recycler;
 
-    @BindView(R.id.activity_main_loading)
-    View activity_main_loading;
+    @BindView(R.id.fragment_master_list_loading)
+    View fragment_master_list_loading;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,12 +85,12 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
 
     @Override
     public void showLoading() {
-        activity_main_loading.setVisibility(View.VISIBLE);
+        fragment_master_list_loading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        activity_main_loading.setVisibility(View.GONE);
+        fragment_master_list_loading.setVisibility(View.GONE);
     }
 
     @Override
@@ -107,7 +101,7 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
     @Override
     public void onItemClick(View view, Game item) {
         Bundle args = new Bundle();
-        args.putSerializable(DetailFragment.GAME_PARAM, item);
+        args.putParcelable(DetailFragment.GAME_PARAM, item);
         Navigation.findNavController(view).navigate(R.id.action_masterListFragment_to_detailFragment, args);
     }
 
