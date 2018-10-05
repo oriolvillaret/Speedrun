@@ -27,6 +27,6 @@ public class Run {
     public class Times {
         //in seconds
         @SerializedName("realtime_t")
-        public Integer realtime_t;
+        public Double realtime_t;
     }
 }

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Record implements Parcelable {
     private String videoURL;
-    private int time; //in seconds
+    private Double time; //in seconds
     private User userFistPlace;
 
     public Record() {
@@ -19,11 +19,11 @@ public class Record implements Parcelable {
         this.videoURL = videoURL;
     }
 
-    public int getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Double time) {
         this.time = time;
     }
 
@@ -44,13 +44,13 @@ public class Record implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.videoURL);
-        dest.writeInt(this.time);
+        dest.writeDouble(this.time);
         dest.writeParcelable(this.userFistPlace, flags);
     }
 
     protected Record(Parcel in) {
         this.videoURL = in.readString();
-        this.time = in.readInt();
+        this.time = in.readDouble();
         this.userFistPlace = in.readParcelable(User.class.getClassLoader());
     }
 

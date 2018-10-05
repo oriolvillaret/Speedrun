@@ -17,10 +17,12 @@ public class Game {
 
     public class Assets {
         @SerializedName("icon")
-        public Icon icon;
+        public Asset icon;
+        @SerializedName("cover-large")
+        public Asset coverLarge;
     }
 
-    public class Icon {
+    public class Asset {
         @SerializedName("uri")
         public String uri;
         @SerializedName("width")

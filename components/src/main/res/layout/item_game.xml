@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ItemGame"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:layout_height="@dimen/item_game_height">
 
     <ImageView
-        android:id="@+id/item_game_img"
-        style="@style/ItemGameImg" />
+        android:id="@+id/item_game_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/item_game_name"
-        android:layout_width="0dp"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/default_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="@style/ItemGameText"
-        tools:text="@string/item_default_text" />
-</LinearLayout>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        style="@style/ItemGame">
+
+        <ImageView
+            android:id="@+id/item_game_img"
+            android:scaleType="centerCrop"
+            style="@style/ItemGameImg" />
+
+        <TextView
+            android:id="@+id/item_game_name"
+            style="@style/ItemGameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="@string/item_default_text" />
+    </LinearLayout>
+</RelativeLayout>

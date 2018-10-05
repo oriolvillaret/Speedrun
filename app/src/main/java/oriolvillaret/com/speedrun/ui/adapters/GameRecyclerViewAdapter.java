@@ -62,7 +62,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             final int pos = position;
             Game game = mDataset.get(pos);
 
-            ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setData(game.getLogoURL(), game.getName());
+            ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setData(game.getBackgroundURL(), game.getLogoURL(), game.getName());
             ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

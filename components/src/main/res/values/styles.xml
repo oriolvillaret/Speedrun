@@ -1,7 +1,6 @@
 <resources>
 
     <style name="ItemGame">
-        <item name="android:background">@color/default_background</item>
         <item name="android:paddingTop">@dimen/default_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/default_padding_vertical</item>
         <item name="android:paddingLeft">@dimen/default_padding_vertical</item>

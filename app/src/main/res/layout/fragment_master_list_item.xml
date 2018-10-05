@@ -11,22 +11,10 @@
         card_view:cardElevation="@dimen/elevation_rounded_card"
         card_view:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <oriolvillaret.com.components.ItemGameView
+            android:id="@+id/item_game"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content" />
 
-            <oriolvillaret.com.components.ItemGameView
-                android:id="@+id/item_game"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_right" />
-        </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

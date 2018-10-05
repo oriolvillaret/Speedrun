@@ -5,9 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -18,6 +18,7 @@ import oriolvillaret.com.speedrun.R;
 import oriolvillaret.com.speedrun.models.Game;
 import oriolvillaret.com.speedrun.models.Record;
 import oriolvillaret.com.speedrun.presenters.DetailPresenter;
+import oriolvillaret.com.speedrun.utils.DateUtils;
 
 
 public class DetailFragment extends BaseFragment implements DetailPresenter.DetailInterface {
@@ -29,10 +30,12 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
 
     @BindView(R.id.fragment_detail_game)
     ItemGameView fragment_detail_game;
-    @BindView(R.id.fragment_detail_record)
-    TextView fragment_detail_record;
+    @BindView(R.id.fragment_detail_record_user)
+    TextView fragment_detail_record_user;
+    @BindView(R.id.fragment_detail_record_time)
+    TextView fragment_detail_record_time;
     @BindView(R.id.fragment_detail_video)
-    Button fragment_detail_video;
+    View fragment_detail_video;
     @BindView(R.id.fragment_detail_loading)
     View fragment_detail_loading;
 
@@ -45,6 +48,7 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
         if (savedInstanceState == null) {
             this.mPresenter.attachView(this);
         }
+        enableActionBarHomeButton(true);
 
         mLayoutId = R.layout.fragment_detail;
 
@@ -89,8 +93,10 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
         mRecord = record;
 
         //fragment_detail_game_image
-        fragment_detail_game.setData(mGame.getLogoURL(), mGame.getName());
-        fragment_detail_record.setText(record.getUserFistPlace().getName() + " - " + record.getTime() + " s");
+        setActionBarTitle(mGame.getName());
+        fragment_detail_game.setData(mGame.getBackgroundURL(), mGame.getLogoURL(), mGame.getName());
+        fragment_detail_record_user.setText(getText(R.string.record_user) + record.getUserFistPlace().getName());
+        fragment_detail_record_time.setText(getText(R.string.record_time) + DateUtils.formatTime(getContext(), record.getTime()));
         if (record.getVideoURL() != null) {
             fragment_detail_video.setVisibility(View.VISIBLE);
         } else {
@@ -102,6 +108,17 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
     public void onVideoClick() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRecord.getVideoURL()));
         startActivity(browserIntent);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

@@ -68,6 +68,8 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
         super.onResume();
         mPresenter.start();
         mPresenter.getData();
+        enableActionBarHomeButton(false);
+        setActionBarTitle(getString(R.string.app_name));
     }
 
     @Override

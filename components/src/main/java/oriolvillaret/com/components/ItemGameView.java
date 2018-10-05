@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 public class ItemGameView extends LinearLayout {
 
+    protected ImageView item_game_background;
     protected ImageView item_game_img;
     protected TextView item_game_name;
 
@@ -33,13 +34,31 @@ public class ItemGameView extends LinearLayout {
     public void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.item_game, this,
                 true);
-
+        item_game_background = findViewById(R.id.item_game_background);
         item_game_img = findViewById(R.id.item_game_img);
         item_game_name = findViewById(R.id.item_game_name);
     }
 
 
-    public void setData(String urlImage, String name) {
+    public void setData(String urlBackground, String urlImage, String name) {
+        if (urlBackground != null) {
+            Picasso.get()
+                    .load(urlBackground)
+                    .into(item_game_background, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            item_game_background.setVisibility(GONE);
+                        }
+                    });
+        } else {
+            item_game_background.setVisibility(GONE);
+        }
+
         if (urlImage != null) {
             Picasso.get()
                     .load(urlImage)
@@ -52,17 +71,17 @@ public class ItemGameView extends LinearLayout {
 
                         @Override
                         public void onError(Exception e) {
-                            setDefaultImage();
+                            setDefaultImageGame();
                         }
                     });
         } else {
-            setDefaultImage();
+            setDefaultImageGame();
         }
 
         item_game_name.setText(name);
     }
 
-    private void setDefaultImage() {
+    private void setDefaultImageGame() {
         Picasso.get()
                 .load(R.drawable.ic_medal)
                 .transform(new CircleTransform())

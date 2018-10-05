@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -46,7 +48,29 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public abstract void hideLoading();
+
     public abstract void showLoading();
+
+    protected void enableActionBarHomeButton(boolean enable) {
+        ActionBar actionbar = getActionBar();
+        if (actionbar != null){
+            actionbar.setDisplayHomeAsUpEnabled(enable);
+        }
+
+    }
+
+    protected void setActionBarTitle(String title) {
+        ActionBar actionbar = getActionBar();
+        if (actionbar != null) actionbar.setTitle(title);
+    }
+
+    private ActionBar getActionBar() {
+        if (getActivity() instanceof AppCompatActivity) {
+            return ((AppCompatActivity) getActivity()).getSupportActionBar();
+        } else {
+            return null;
+        }
+    }
 
     protected void showToastError(String str) {
         showToastMessage(str, mRootView, R.color.red);
