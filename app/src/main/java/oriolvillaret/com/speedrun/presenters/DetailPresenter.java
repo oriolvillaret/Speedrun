@@ -37,8 +37,16 @@ public class DetailPresenter extends BasePresenter<DetailPresenter.DetailInterfa
         EventBus.getDefault().removeStickyEvent(data);
         if (getView()!=null) {
             if (data != null && !data.isEmpty()){
-                record = data.get(0);
-                getUser(record.getUserFistPlace().getId());
+                //find only first not null record if its possible
+                for(int x = 0; record==null && x<data.size();x++){
+                    record = data.get(x);
+                }
+                if (record!=null) {
+                    getUser(record.getUserFistPlace().getId());
+                }else{
+                    getView().hideLoading();
+                    getView().setData(null);
+                }
             }else{
                 getView().hideLoading();
                 getView().setData(null);
