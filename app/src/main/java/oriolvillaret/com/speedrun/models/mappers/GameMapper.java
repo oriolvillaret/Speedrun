@@ -18,15 +18,12 @@ public class GameMapper {
             if (game.assets.icon != null) {
                 res.setLogoURL(game.assets.icon.uri);
             }
-            if (game.assets.coverLarge != null) {
-                res.setBackgroundURL(game.assets.coverLarge.uri);
-            }
         }
 
         return res;
     }
 
-    public static List<Game> fromApi(List<oriolvillaret.com.api_connection_lib.models.Game> games) {
+    public static ArrayList<Game> fromApi(List<oriolvillaret.com.api_connection_lib.models.Game> games) {
         ArrayList res = new ArrayList();
         for (oriolvillaret.com.api_connection_lib.models.Game game : games) {
             res.add(fromApi(game));

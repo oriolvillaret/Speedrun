@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import oriolvillaret.com.speedrun.R;
@@ -21,9 +20,11 @@ import oriolvillaret.com.speedrun.ui.adapters.GameRecyclerViewAdapter;
 
 public class MasterListFragment extends BaseFragment implements MasterListPresenter.MasterListInterface, GameRecyclerViewAdapter.OnItemClickListener {
 
+    private static final String PARAM_SAVED_INSTANCE_STATE_GAMES = "PARAM_GAMES";
+
     private MasterListPresenter mPresenter;
     GameRecyclerViewAdapter adapter;
-
+    ArrayList<Game> mGames;
 
     @BindView(R.id.fragment_master_list_recycler)
     RecyclerView fragment_master_list_recycler;
@@ -50,7 +51,21 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        if (savedInstanceState != null) {
+            // Restore last state
+            mGames = savedInstanceState.getParcelableArrayList(PARAM_SAVED_INSTANCE_STATE_GAMES);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mGames != null) {
+            outState.putParcelableArrayList(PARAM_SAVED_INSTANCE_STATE_GAMES, mGames);
+        }
     }
 
 
@@ -67,9 +82,14 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
     public void onResume() {
         super.onResume();
         mPresenter.start();
-        mPresenter.getData();
+
         enableActionBarHomeButton(false);
         setActionBarTitle(getString(R.string.app_name));
+        if (mGames != null) {
+            drawList();
+        }else{
+            mPresenter.getData();
+        }
     }
 
     @Override
@@ -79,10 +99,23 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
     }
 
     @Override
-    public void setData(List<Game> games) {
-        adapter = new GameRecyclerViewAdapter(games, this);
-        fragment_master_list_recycler.setAdapter(adapter);
+    public void setData(ArrayList<Game> games) {
+        mGames = games;
+        drawList();
+    }
 
+    private void drawList() {
+        if (adapter == null) {
+            adapter = new GameRecyclerViewAdapter(mGames, this);
+            fragment_master_list_recycler.setAdapter(adapter);
+        } else {
+            adapter.setData(mGames);
+            if (fragment_master_list_recycler.getAdapter()==null){
+                fragment_master_list_recycler.setAdapter(adapter);
+            }else{
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
@@ -102,9 +135,7 @@ public class MasterListFragment extends BaseFragment implements MasterListPresen
 
     @Override
     public void onItemClick(View view, Game item) {
-        Bundle args = new Bundle();
-        args.putParcelable(DetailFragment.GAME_PARAM, item);
-        Navigation.findNavController(view).navigate(R.id.action_masterListFragment_to_detailFragment, args);
+        mPresenter.navigationDetail(view, item);
     }
 
 }

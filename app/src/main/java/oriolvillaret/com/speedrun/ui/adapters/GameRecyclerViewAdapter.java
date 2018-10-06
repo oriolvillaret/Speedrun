@@ -13,7 +13,7 @@ import oriolvillaret.com.speedrun.models.Game;
 
 public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<Game> mDataset;
+    private List<Game> mDataset;
     private OnItemClickListener onItemClickListener;
     private final int VIEW_TYPE_ITEM = 1;
 
@@ -39,6 +39,10 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
+    public void setData(List<Game> items){
+        this.mDataset = items;
+    }
+
     @Override
     public int getItemCount() {
         return mDataset == null ? 0 : mDataset.size();
@@ -62,7 +66,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             final int pos = position;
             Game game = mDataset.get(pos);
 
-            ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setData(game.getBackgroundURL(), game.getLogoURL(), game.getName());
+            ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setData(game.getLogoURL(), game.getName());
             ((GameRecyclerViewAdapter.ViewHolder) holder).gameView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

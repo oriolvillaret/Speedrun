@@ -1,7 +1,5 @@
 package oriolvillaret.com.speedrun.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,6 +20,9 @@ import oriolvillaret.com.speedrun.utils.DateUtils;
 
 
 public class DetailFragment extends BaseFragment implements DetailPresenter.DetailInterface {
+
+    public static String PARAM_SAVED_INSTANCE_STATE_GAME = "PARAM_GAME";
+    public static String PARAM_SAVED_INSTANCE_STATE_RECORD = "PARAM_RECORD";
 
     public static String GAME_PARAM = "game_param";
     private DetailPresenter mPresenter;
@@ -48,7 +49,6 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
         if (savedInstanceState == null) {
             this.mPresenter.attachView(this);
         }
-        enableActionBarHomeButton(true);
 
         mLayoutId = R.layout.fragment_detail;
 
@@ -63,7 +63,24 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
         }
 
         ButterKnife.bind(this, view);
+        if (savedInstanceState != null) {
+            // Restore last state
+            mGame = savedInstanceState.getParcelable(PARAM_SAVED_INSTANCE_STATE_GAME);
+            if (savedInstanceState.containsKey(PARAM_SAVED_INSTANCE_STATE_RECORD)) {
+                mRecord = savedInstanceState.getParcelable(PARAM_SAVED_INSTANCE_STATE_RECORD);
+            }
+        }
+        enableActionBarHomeButton(true);
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(PARAM_SAVED_INSTANCE_STATE_GAME, mGame);
+        if (mRecord != null) {
+            outState.putParcelable(PARAM_SAVED_INSTANCE_STATE_RECORD, mRecord);
+        }
     }
 
 
@@ -78,7 +95,11 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
         super.onResume();
         mPresenter.start();
         if (mGame != null) {
-            mPresenter.getRecord(mGame.getId());
+            if (mRecord == null) {
+                mPresenter.getRecord(mGame.getId());
+            } else {
+                setData(mRecord);
+            }
         }
     }
 
@@ -94,7 +115,7 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
 
         //fragment_detail_game_image
         setActionBarTitle(mGame.getName());
-        fragment_detail_game.setData(mGame.getBackgroundURL(), mGame.getLogoURL(), mGame.getName());
+        fragment_detail_game.setData(mGame.getLogoURL(), mGame.getName());
         fragment_detail_record_user.setText(getText(R.string.record_user) + record.getUserFistPlace().getName());
         fragment_detail_record_time.setText(getText(R.string.record_time) + DateUtils.formatTime(getContext(), record.getTime()));
         if (record.getVideoURL() != null) {
@@ -106,15 +127,14 @@ public class DetailFragment extends BaseFragment implements DetailPresenter.Deta
 
     @OnClick(R.id.fragment_detail_video)
     public void onVideoClick() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mRecord.getVideoURL()));
-        startActivity(browserIntent);
+        mPresenter.navigationGoToExternalUrl(mRecord.getVideoURL());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                getActivity().onBackPressed();
+                mPresenter.navigationBack(fragment_detail_game);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

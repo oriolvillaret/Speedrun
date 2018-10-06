@@ -6,7 +6,6 @@ import android.os.Parcelable;
 public class Game implements Parcelable {
     private String id;
     private String name;
-    private String backgroundURL;
     private String logoURL;
 
     public Game() {
@@ -28,14 +27,6 @@ public class Game implements Parcelable {
         this.name = name;
     }
 
-    public String getBackgroundURL() {
-        return backgroundURL;
-    }
-
-    public void setBackgroundURL(String backgroundURL) {
-        this.backgroundURL = backgroundURL;
-    }
-
     public String getLogoURL() {
         return logoURL;
     }
@@ -54,14 +45,12 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.backgroundURL);
         dest.writeString(this.logoURL);
     }
 
     protected Game(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
-        this.backgroundURL = in.readString();
         this.logoURL = in.readString();
     }
 
