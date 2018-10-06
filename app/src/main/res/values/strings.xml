@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Speedrun</string>
+    <string name="generic_error">Something is wrong</string>
+
+    <string name="record_user">User: </string>
+    <string name="record_time">Time: </string>
+
+    <string name="days">d</string>
+    <string name="hours">h</string>
+    <string name="minutes">m</string>
+    <string name="seconds">s</string>
+</resources>
