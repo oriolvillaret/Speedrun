@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import androidx.navigation.Navigation;
 import oriolvillaret.com.speedrun.R;
-import oriolvillaret.com.speedrun.controllers.SpeedrunController;
+import oriolvillaret.com.speedrun.interactors.SpeedrunInteractor;
 import oriolvillaret.com.speedrun.models.Game;
 import oriolvillaret.com.speedrun.ui.DetailFragment;
 
@@ -25,7 +25,7 @@ public class MasterListPresenter extends BasePresenter<MasterListPresenter.Maste
         if (getView()!=null) {
             getView().showLoading();
         }
-        SpeedrunController.getInstance().getGames();
+        SpeedrunInteractor.getInstance().getGames();
     }
 
 

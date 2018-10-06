@@ -1,4 +1,4 @@
-package oriolvillaret.com.speedrun.controllers;
+package oriolvillaret.com.speedrun.interactors;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -10,13 +10,13 @@ import oriolvillaret.com.speedrun.models.mappers.GameMapper;
 import oriolvillaret.com.speedrun.models.mappers.RecordMapper;
 import oriolvillaret.com.speedrun.models.mappers.UserMapper;
 
-public class SpeedrunController {
+public class SpeedrunInteractor {
 
-    private static SpeedrunController _instance;
+    private static SpeedrunInteractor _instance;
 
-    public static SpeedrunController getInstance() {
+    public static SpeedrunInteractor getInstance() {
         if (_instance == null) {
-            _instance = new SpeedrunController();
+            _instance = new SpeedrunInteractor();
         }
         return _instance;
     }

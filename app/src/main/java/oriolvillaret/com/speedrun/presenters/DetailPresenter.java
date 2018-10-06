@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import androidx.navigation.Navigation;
-import oriolvillaret.com.speedrun.controllers.SpeedrunController;
+import oriolvillaret.com.speedrun.interactors.SpeedrunInteractor;
 import oriolvillaret.com.speedrun.models.Record;
 import oriolvillaret.com.speedrun.models.User;
 
@@ -27,14 +27,14 @@ public class DetailPresenter extends BasePresenter<DetailPresenter.DetailInterfa
         if (getView() != null) {
             getView().showLoading();
         }
-        SpeedrunController.getInstance().getRecords(gameId);
+        SpeedrunInteractor.getInstance().getRecords(gameId);
     }
 
     public void getUser(String userId) {
         if (getView() != null) {
             getView().showLoading();
         }
-        SpeedrunController.getInstance().getUser(userId);
+        SpeedrunInteractor.getInstance().getUser(userId);
     }
 
 
